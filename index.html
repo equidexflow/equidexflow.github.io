@@ -45,8 +45,15 @@
 
   <!-- MathJax for inline math -->
   <script>
-    MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] } };
+    MathJax = { tex: { inlineMath: [['\$', '\$']], displayMath: [['\\[', '\\]']] } };
   </script>
+  <script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$']]
+    }
+  };
+</script>
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
@@ -90,20 +97,20 @@
                 </span> -->
                 <!-- arXiv Link -->
                 <span class="link-block">
-                  <a href="#" target="_blank" rel="noopener noreferrer" class="external-link button is-normal is-rounded is-dark">
+                  <a href="#" target="#" rel="noopener noreferrer" class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="ai ai-arxiv"></i>
                     </span>
-                    <span>arXiv</span>
+                    <span>arXiv (TBA)</span>
                   </a>
                 </span>
                 <!-- Code Link -->
                 <span class="link-block">
-                  <a href="https://github.com/equidexflow/equidexflow" target="_blank" rel="noopener noreferrer" class="external-link button is-normal is-rounded is-dark">
+                  <a href="#" target="#" rel="noopener noreferrer" class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="fab fa-github"></i>
                     </span>
-                    <span>Code</span>
+                    <span>Code (TBA)</span>
                   </a>
                 </span>
               </div>
@@ -121,10 +128,10 @@
         <div class="teaser-equivariance">
           <div class="teaser-panel">
             <img src="./static/images/allegro_teaser_input.png" alt="Input object">
-            <div class="teaser-label">Input \(\mathcal{P}\)</div>
+            <div class="teaser-label">Input $\mathcal{P}$</div>
           </div>
           <div class="teaser-arrow">
-            <div>\(R_z(120^\circ)\)</div>
+            <div>$R_z(120^\circ)$</div>
             <i class="fas fa-arrow-right"></i>
           </div>
           <div class="teaser-panel">
@@ -178,27 +185,12 @@
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              Most learned dexterous grasp generators relegate contact forces to a downstream
-              verification step, so a kinematically plausible pose can still violate the
-              conditions for a stable physical grasp. We address this with
+              Most learned dexterous grasp generators relegate contact forces to a downstream verification step, so a kinematically-plausible pose can still violate the conditions for a stable physical grasp. We address this with
               <span class="equidexflow-plain">EquiDexFlow</span>, an SE(3)-equivariant
-              flow-matching model that jointly predicts wrist pose, joint angles, fingertip
-              contacts, surface normals, and contact forces from an object point cloud. Our
-              architecture projects contacts onto the object surface and forces into the Coulomb
-              friction cone by construction, so placement and friction compliance hold without
-              loss penalties.
+              flow-matching model that jointly predicts wrist pose, joint angles, fingertip contacts, surface normals, and contact forces from an object point cloud. Our architecture projects contacts onto the object surface and forces into the Coulomb friction cone by construction, so placement and friction compliance hold without loss penalties.
             </p>
             <p>
-              We prove end-to-end SE(3) equivariance and verify it empirically over 200 rotations,
-              with wrist residuals below 0.04&deg; and exactly zero joint deviation. Trained on
-              8,100 force-closure grasps across 81 objects for the 16-DoF Allegro Hand,
-              <span class="equidexflow-plain">EquiDexFlow</span> achieves zero friction
-              violations, the best composite score, and the lowest wrench residual among all
-              ablation variants. We retarget decoded fingertip contacts to a 16-DoF LEAP Hand via
-              per-finger inverse kinematics, and our hardware-feasible refinement places every
-              joint at least 5% inside its actuator envelope while preserving wrench balance. On
-              the physical robot, retargeted grasps complete open-loop pick-and-hold trials on all
-              six test objects, with every asymmetric object succeeding at both the canonical pose
+              We prove end-to-end SE(3) equivariance and verify it empirically over 200 rotations, with wrist residuals below 0.04&deg; and exactly zero joint deviation. Trained on 8,100 force-closure grasps across 81 objects for the 16-DoF Allegro Hand,<span class="equidexflow-plain">EquiDexFlow</span> achieves zero friction violations, the best composite score, and the lowest wrench residual among all ablation variants. We retarget decoded fingertip contacts to a 16-DoF LEAP Hand via per-finger inverse kinematics, and our hardware-feasible refinement places every joint at least 5% inside its actuator envelope while preserving wrench balance. On the physical robot, retargeted grasps complete open-loop pick-and-hold trials on all six test objects, with every asymmetric object succeeding at both the canonical pose
               and a 120&deg; co-rotation.
             </p>
           </div>
@@ -216,11 +208,7 @@
           <h2 class="title is-3 has-text-centered">Architecture</h2>
           <div class="content has-text-justified">
             <p>
-              <span class="equidexflow-plain">EquiDexFlow</span> takes an object point cloud and
-              produces in a single forward pass: a wrist SE(3) pose, sixteen joint angles from a
-              conditional normalizing flow, four fingertip contacts projected onto the surface,
-              and contact forces projected into the friction cone, all jointly consistent
-              with the learned distribution.
+              <span class="equidexflow-plain">EquiDexFlow</span> takes an object point cloud and a kinematic model of a $D$-DoF, $M$-fingered robotic hand and produces, in a single forward pass: a wrist SE(3) pose, $D$ joint angles from a conditional normalizing flow, a set of $M$ contact points projected onto the object surface, and per-contact forces projected into the friction cone, all jointly consistent with the learned distribution. The released Allegro checkpoints use $D{=}16$ and $M{=}4$. Both are set per-hand in the model config.
             </p>
           </div>
 
@@ -231,7 +219,7 @@
                   <i class="fas fa-project-diagram fa-2x"></i>
                 </span>
                 <h4 class="title is-6">VN-DGCNN Encoder</h4>
-                <p>SO(3)-equivariant point-cloud encoder producing features \(z_O \in \mathbb{R}^{341 \times 3}\).</p>
+                <p>SO(3)-equivariant point-cloud encoder producing features $z_O \in \mathbb{R}^{341 \times 3}$.</p>
               </div>
             </div>
             <div class="column is-one-fifth">
@@ -298,12 +286,9 @@
             </div>
             <div class="column">
               <div class="content has-text-justified">
-                <h4 class="title is-5">End-to-End Equivariance</h4>
+                <h4 class="title is-5">End-to-End Architectural Equivariance</h4>
                 <p>
-                  The full pipeline (encoder, SE(3) flow, contact/normal/force decoders,
-                  and wrist refinement) is SE(3)-equivariant by construction. Rotating the
-                  input object rotates the generated grasp identically, with wrist rotation
-                  residual below 0.04&deg; and zero joint deviation across 200 SO(3) rotations.
+                  The full pipeline &#40;encoder, SE&#40;3&#41; flow, contact/normal/force decoders, and wrist refinement&#41; is SE(3)-equivariant by construction. Rotating the input object rotates the generated grasp identically, with wrist rotation residual below 0.04&deg; and zero joint deviation across 200 SO(3) rotations.
                 </p>
               </div>
             </div>
@@ -311,10 +296,7 @@
               <div class="content has-text-justified">
                 <h4 class="title is-5">Cross-Embodiment Transfer</h4>
                 <p>
-                  The contact-grounded representation is embodiment-agnostic: the encoder,
-                  flow backbone, and decoder heads do not depend on the hand model. We retarget
-                  Allegro grasps to a physical LEAP Hand via inverse kinematics and confirm
-                  execution on hardware.
+                  The true invariant of any grasping pipeline is the grasp itself. EquiDexFlow's contact-grounded representation thus makes it embodiment-agnostic: the encoder, flow backbone, and decoder heads do not depend on the hand model. To demonstrate this fact, we retarget Allegro grasps to a physical LEAP Hand via inverse kinematics and confirm that the grasps are kinematically-feasible, reachable, and transfer to hardware following an arm-aware collision-filtering step.
                 </p>
               </div>
             </div>
@@ -338,7 +320,7 @@
       <div class="tabs is-centered is-boxed is-medium gallery-tabs" id="equiv-tabs">
         <ul>
           <li class="is-active" data-tab="snscup"><a>SNS Cup</a></li>
-          <li data-tab="banana"><a>Banana</a></li>
+          <li data-tab="graspitbox"><a>Box Primitive</a></li>
           <li data-tab="e4"><a>EGAD E4</a></li>
         </ul>
       </div>
@@ -353,32 +335,32 @@
           <div class="equiv-arrow"><i class="fas fa-arrow-right"></i></div>
           <div class="equiv-panel">
             <img src="./static/images/equivariance/allegro_equiv_snscup_120.png" alt="SNS Cup 120°">
-            <div class="equiv-label">\(R_z(120^\circ)\)</div>
+            <div class="equiv-label">$R_z(120^\circ)$</div>
           </div>
           <div class="equiv-arrow"><i class="fas fa-arrow-right"></i></div>
           <div class="equiv-panel">
             <img src="./static/images/equivariance/allegro_equiv_snscup_240.png" alt="SNS Cup 240°">
-            <div class="equiv-label">\(R_z(240^\circ)\)</div>
+            <div class="equiv-label">$R_z(240^\circ)$</div>
           </div>
         </div>
       </div>
 
-      <!-- Banana -->
-      <div id="equiv-banana" data-group="equiv" style="display: none;">
+      <!-- Box Primitive -->
+      <div id="equiv-graspitbox" data-group="equiv" style="display: none;">
         <div class="equiv-strip">
           <div class="equiv-panel">
-            <img src="./static/images/equivariance/allegro_equiv_banana_000.png" alt="Banana 0°">
+            <img src="./static/images/equivariance/allegro_equiv_graspitbox_000.png" alt="Box Primitive 0°">
             <div class="equiv-label">0&deg;</div>
           </div>
           <div class="equiv-arrow"><i class="fas fa-arrow-right"></i></div>
           <div class="equiv-panel">
-            <img src="./static/images/equivariance/allegro_equiv_banana_120.png" alt="Banana 120°">
-            <div class="equiv-label">\(R_z(120^\circ)\)</div>
+            <img src="./static/images/equivariance/allegro_equiv_graspitbox_120.png" alt="Box Primitive 120°">
+            <div class="equiv-label">$R_z(120^\circ)$</div>
           </div>
           <div class="equiv-arrow"><i class="fas fa-arrow-right"></i></div>
           <div class="equiv-panel">
-            <img src="./static/images/equivariance/allegro_equiv_banana_240.png" alt="Banana 240°">
-            <div class="equiv-label">\(R_z(240^\circ)\)</div>
+            <img src="./static/images/equivariance/allegro_equiv_graspitbox_240.png" alt="Box Primitive 240°">
+            <div class="equiv-label">$R_z(240^\circ)$</div>
           </div>
         </div>
       </div>
@@ -393,12 +375,12 @@
           <div class="equiv-arrow"><i class="fas fa-arrow-right"></i></div>
           <div class="equiv-panel">
             <img src="./static/images/equivariance/allegro_equiv_E4_120.png" alt="E4 120°">
-            <div class="equiv-label">\(R_z(120^\circ)\)</div>
+            <div class="equiv-label">$R_z(120^\circ)$</div>
           </div>
           <div class="equiv-arrow"><i class="fas fa-arrow-right"></i></div>
           <div class="equiv-panel">
             <img src="./static/images/equivariance/allegro_equiv_E4_240.png" alt="E4 240°">
-            <div class="equiv-label">\(R_z(240^\circ)\)</div>
+            <div class="equiv-label">$R_z(240^\circ)$</div>
           </div>
         </div>
       </div>
@@ -436,82 +418,6 @@
         <img src="./static/images/allegro/allegro_gallery_2x8.png" alt="Allegro grasp gallery 2x8"
           class="collage-2x8 zoomable">
       </div>
-
-      <!-- Individual grasps grid -->
-      <!-- <div class="columns is-multiline is-centered grasp-grid">
-        <div class="column is-one-quarter-desktop is-half-tablet">
-          <figure class="image grasp-figure">
-            <img src="./static/images/allegro/apple.png" alt="Allegro grasping apple">
-            <figcaption>Apple</figcaption>
-          </figure>
-        </div>
-        <div class="column is-one-quarter-desktop is-half-tablet">
-          <figure class="image grasp-figure">
-            <img src="./static/images/allegro/banana.png" alt="Allegro grasping banana">
-            <figcaption>Banana</figcaption>
-          </figure>
-        </div>
-        <div class="column is-one-quarter-desktop is-half-tablet">
-          <figure class="image grasp-figure">
-            <img src="./static/images/allegro/baseball.png" alt="Allegro grasping baseball">
-            <figcaption>Baseball</figcaption>
-          </figure>
-        </div>
-        <div class="column is-one-quarter-desktop is-half-tablet">
-          <figure class="image grasp-figure">
-            <img src="./static/images/allegro/graspit_cylinder.png" alt="Allegro grasping cylinder">
-            <figcaption>Cylinder</figcaption>
-          </figure>
-        </div>
-        <div class="column is-one-quarter-desktop is-half-tablet">
-          <figure class="image grasp-figure">
-            <img src="./static/images/allegro/sns_cup.png" alt="Allegro grasping SNS cup">
-            <figcaption>SNS Cup</figcaption>
-          </figure>
-        </div>
-        <div class="column is-one-quarter-desktop is-half-tablet">
-          <figure class="image grasp-figure">
-            <img src="./static/images/allegro/orange.png" alt="Allegro grasping orange">
-            <figcaption>Orange</figcaption>
-          </figure>
-        </div>
-        <div class="column is-one-quarter-desktop is-half-tablet">
-          <figure class="image grasp-figure">
-            <img src="./static/images/allegro/strawberry.png" alt="Allegro grasping strawberry">
-            <figcaption>Strawberry</figcaption>
-          </figure>
-        </div>
-        <div class="column is-one-quarter-desktop is-half-tablet">
-          <figure class="image grasp-figure">
-            <img src="./static/images/allegro/lemon.png" alt="Allegro grasping lemon">
-            <figcaption>Lemon</figcaption>
-          </figure>
-        </div>
-        <div class="column is-one-quarter-desktop is-half-tablet">
-          <figure class="image grasp-figure">
-            <img src="./static/images/allegro/E4.png" alt="Allegro grasping EGAD E4">
-            <figcaption>EGAD E4</figcaption>
-          </figure>
-        </div>
-        <div class="column is-one-quarter-desktop is-half-tablet">
-          <figure class="image grasp-figure">
-            <img src="./static/images/allegro/F5.png" alt="Allegro grasping EGAD F5">
-            <figcaption>EGAD F5</figcaption>
-          </figure>
-        </div>
-        <div class="column is-one-quarter-desktop is-half-tablet">
-          <figure class="image grasp-figure">
-            <img src="./static/images/allegro/G0.png" alt="Allegro grasping EGAD G0">
-            <figcaption>EGAD G0</figcaption>
-          </figure>
-        </div>
-        <div class="column is-one-quarter-desktop is-half-tablet">
-          <figure class="image grasp-figure">
-            <img src="./static/images/allegro/G6.png" alt="Allegro grasping EGAD G6">
-            <figcaption>EGAD G6</figcaption>
-          </figure>
-        </div>
-      </div> -->
     </div>
   </section>
 
@@ -618,9 +524,9 @@
             <thead>
               <tr>
                 <th>Angle Bin</th>
-                <th>\(\Delta R_w\) (&deg;)</th>
-                <th>\(\Delta x_w\) (mm)</th>
-                <th>\(\max \Delta q_h\) (&deg;)</th>
+                <th>$\Delta R_w$ (&deg;)</th>
+                <th>$\Delta x_w$ (mm)</th>
+                <th>$\max \Delta q_h$ (&deg;)</th>
               </tr>
             </thead>
             <tbody>
@@ -645,7 +551,7 @@
             </thead>
             <tbody>
               <tr><td>Stochastic</td><td>&minus;0.95</td><td>&minus;1.22</td><td>0.0</td></tr>
-              <tr><td>Deterministic (\(z{=}0\))</td><td>&minus;0.97</td><td>&minus;1.24</td><td>0.0</td></tr>
+              <tr><td>Deterministic ($z{=}0$)</td><td>&minus;0.97</td><td>&minus;1.24</td><td>0.0</td></tr>
               <tr><td>No cone projection</td><td>&minus;5.92</td><td>&minus;5.95</td><td>100</td></tr>
             </tbody>
           </table>
