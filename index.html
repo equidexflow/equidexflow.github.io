@@ -286,7 +286,7 @@
             </div>
             <div class="column">
               <div class="content has-text-justified">
-                <h4 class="title is-5">End-to-End Architectural Equivariance</h4>
+                <h4 class="title is-5">End-to-End Equivariance</h4>
                 <p>
                   The full pipeline &#40;encoder, SE&#40;3&#41; flow, contact/normal/force decoders, and wrist refinement&#41; is SE(3)-equivariant by construction. Rotating the input object rotates the generated grasp identically, with wrist rotation residual below 0.04&deg; and zero joint deviation across 200 SO(3) rotations.
                 </p>
@@ -296,7 +296,8 @@
               <div class="content has-text-justified">
                 <h4 class="title is-5">Cross-Embodiment Transfer</h4>
                 <p>
-                  The true invariant of any grasping pipeline is the grasp itself. EquiDexFlow's contact-grounded representation thus makes it embodiment-agnostic: the encoder, flow backbone, and decoder heads do not depend on the hand model. To demonstrate this fact, we retarget Allegro grasps to a physical LEAP Hand via inverse kinematics and confirm that the grasps are kinematically-feasible, reachable, and transfer to hardware following an arm-aware collision-filtering step.
+                  <!-- The true invariant of any grasp generation pipeline is the contact geometry that constitutes each synthesized grasp. EquiDexFlow's contact-grounded representation thus makes it embodiment-agnostic: the encoder, flow backbone, and decoder heads do not depend on the hand model. To demonstrate this fact, we retarget Allegro grasps to a physical LEAP Hand via inverse kinematics and confirm that the grasps are kinematically-feasible, reachable, and transfer to hardware following an arm-aware collision-filtering step. -->
+                  EquiDexFlow's contact-grounded representation is embodiment-agnostic: the encoder, flow backbone, and decoder heads do not depend on the hand model. To demonstrate this fact, we retarget Allegro grasps to a physical LEAP Hand via inverse kinematics and confirm that the grasps are transfer to hardware.
                 </p>
               </div>
             </div>
