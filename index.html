@@ -595,7 +595,8 @@
       <p class="has-text-centered is-size-6" style="color: var(--text-muted); max-width: 760px; margin: 0 auto 1rem;">
         Gravity-off robustness check (GenDexGrasp/GAGrasp protocol in Drake): a &plusmn;<em>xyz</em>
         inertial load is applied to the object along all six axes, and a grasp passes if the object
-        drifts under 2&nbsp;cm in every direction. The held object stays nearly stationary throughout.
+        drifts under 2&nbsp;cm in every direction. Both objects pass at the canonical pose and its
+        120&deg; co-rotation, and the held object stays nearly stationary throughout.
       </p>
       <div class="columns is-centered is-vcentered">
         <div class="column has-text-centered">
@@ -603,6 +604,12 @@
             <source src="./static/videos/sim_shake/mustard_bottle__shake_0.mp4" type="video/mp4">
           </video>
           <p class="is-size-7" style="color: var(--text-muted); margin-top: 0.5rem;">Mustard Bottle, 0&deg; &middot; 3.2&nbsp;mm max drift</p>
+        </div>
+        <div class="column has-text-centered">
+          <video class="zoomable" autoplay muted loop playsinline preload="metadata" style="max-width: 100%; border-radius: 6px;">
+            <source src="./static/videos/sim_shake/mustard_bottle__shake_120.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-7" style="color: var(--text-muted); margin-top: 0.5rem;">Mustard Bottle, 120&deg; &middot; 3.4&nbsp;mm max drift</p>
         </div>
         <div class="column has-text-centered">
           <video class="zoomable" autoplay muted loop playsinline preload="metadata" style="max-width: 100%; border-radius: 6px;">
