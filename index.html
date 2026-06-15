@@ -152,6 +152,84 @@
   </section>
 
 
+  <!-- Hardware Highlights (featured selection; full set lives in #full-gallery) -->
+  <section class="section">
+    <div class="container is-max-widescreen">
+      <p class="zoom-hint has-text-centered">
+        <i class="fas fa-search-plus"></i>&nbsp;Click any clip to enlarge
+      </p>
+      <div class="hw-pair-grid" style="grid-template-columns: repeat(3, 1fr); max-width: 1100px;">
+        <figure class="hw-pair-card">
+          <figcaption class="hw-pair-name">Box Primitive</figcaption>
+          <div class="hw-pair-vids">
+            <div class="hw-cell">
+              <video class="hw-vid" autoplay muted loop playsinline preload="metadata">
+                <source src="./static/videos/hardware/graspit_box_0_cut_cropped.mp4" type="video/mp4">
+              </video>
+              <span class="hw-ort">0&deg;</span>
+            </div>
+            <div class="hw-cell">
+              <video class="hw-vid" autoplay muted loop playsinline preload="metadata">
+                <source src="./static/videos/hardware/graspit_box_120_cut_cropped.mp4" type="video/mp4">
+              </video>
+              <span class="hw-ort">120&deg;</span>
+            </div>
+          </div>
+        </figure>
+        <figure class="hw-pair-card">
+          <figcaption class="hw-pair-name">Cube</figcaption>
+          <div class="hw-pair-vids">
+            <div class="hw-cell">
+              <video class="hw-vid" autoplay muted loop playsinline preload="metadata">
+                <source src="./static/videos/hardware/cube_0_alt_cut_cropped.mp4" type="video/mp4">
+              </video>
+              <span class="hw-ort">0&deg;</span>
+            </div>
+            <div class="hw-cell">
+              <video class="hw-vid" autoplay muted loop playsinline preload="metadata">
+                <source src="./static/videos/hardware/cube_120_alt2_cut_cropped.mp4" type="video/mp4">
+              </video>
+              <span class="hw-ort">120&deg;</span>
+            </div>
+          </div>
+        </figure>
+        <figure class="hw-pair-card">
+          <figcaption class="hw-pair-name">Mustard Bottle</figcaption>
+          <div class="hw-pair-vids">
+            <div class="hw-cell">
+              <video class="hw-vid" autoplay muted loop playsinline preload="metadata">
+                <source src="./static/videos/hardware/mustard_0_cut_cropped.mp4" type="video/mp4">
+              </video>
+              <span class="hw-ort">0&deg;</span>
+            </div>
+            <div class="hw-cell">
+              <video class="hw-vid" autoplay muted loop playsinline preload="metadata">
+                <source src="./static/videos/hardware/mustard_120_cut_cropped.mp4" type="video/mp4">
+              </video>
+              <span class="hw-ort">120&deg;</span>
+            </div>
+          </div>
+        </figure>
+      </div>
+      <p class="has-text-centered" style="font-size: 1.05rem; color: var(--text-muted); max-width: 820px; margin: 1rem auto 0;">
+        A small selection of <span class="equidexflow-plain">EquiDexFlow</span> grasps executed on a physical LEAP Hand for the same object at the canonical ($0&deg;$) and $R_z(120&deg;)$-rotated poses.
+      </p>
+      <div class="has-text-centered" style="margin-top: 1.25rem;">
+        <div class="publication-links">
+          <span class="link-block">
+            <a href="#full-gallery" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">
+                <i class="fas fa-photo-video"></i>
+              </span>
+              <span>Full video gallery</span>
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
   <!-- Key Results -->
   <section class="section">
     <div class="container is-max-desktop">
@@ -623,7 +701,7 @@
       </div>
 
       <!-- Hardware execution -->
-      <h4 class="title is-5 has-text-centered" style="margin-top: 2rem;">Hardware Execution</h4>
+      <h4 id="full-gallery" class="title is-5 has-text-centered" style="margin-top: 2rem;">Hardware Execution</h4>
       <p class="has-text-centered is-size-6" style="color: var(--text-muted); max-width: 760px; margin: 0 auto;">
         Equivariant grasps executed on a physical LEAP Hand mounted on a 6-DoF ZArm.
         All six hardware test objects complete open-loop pick-and-hold trials, with every asymmetric
