@@ -106,11 +106,11 @@
                 </span>
                 <!-- Code Link -->
                 <span class="link-block">
-                  <a href="#" target="#" rel="noopener noreferrer" class="external-link button is-normal is-rounded is-dark">
+                  <a href="https://github.com/coenwerem/equidexflow" target="_blank" rel="noopener noreferrer" class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="fab fa-github"></i>
                     </span>
-                    <span>Code (TBA)</span>
+                    <span>Code</span>
                   </a>
                 </span>
               </div>
@@ -295,9 +295,7 @@
             <div class="column">
               <div class="content has-text-justified">
                 <h4 class="title is-5">Cross-Embodiment Transfer</h4>
-                <p>
-                  <!-- The true invariant of any grasp generation pipeline is the contact geometry that constitutes each synthesized grasp. EquiDexFlow's contact-grounded representation thus makes it embodiment-agnostic: the encoder, flow backbone, and decoder heads do not depend on the hand model. To demonstrate this fact, we retarget Allegro grasps to a physical LEAP Hand via inverse kinematics and confirm that the grasps are kinematically-feasible, reachable, and transfer to hardware following an arm-aware collision-filtering step. -->
-                  EquiDexFlow's contact-grounded representation is embodiment-agnostic: the encoder, flow backbone, and decoder heads do not depend on the hand model. To demonstrate this fact, we retarget Allegro grasps to a physical LEAP Hand via inverse kinematics and confirm that the grasps are transfer to hardware.
+                <p><span class="equidexflow-plain">EquiDexFlow</span>'s contact-grounded grasp representation is embodiment-agnostic: the encoder, flow backbone, and decoder heads do not depend on the hand model. To demonstrate this fact, we retarget Allegro grasps to a physical LEAP Hand via inverse kinematics and confirm that the grasps are transfer to hardware.
                 </p>
               </div>
             </div>
@@ -311,12 +309,11 @@
   <!-- Equivariance Gallery -->
   <section class="section has-background-light">
     <div class="container is-max-widescreen">
-      <h2 class="title is-3 has-text-centered">SE(3) Equivariance</h2>
-      <p class="subtitle has-text-centered">
-        Grasps co-rotate with the object under arbitrary rotations. Wrist residual &lt;0.04&deg;,
-        joint deviation exactly zero.
+      <h2 class="title is-3 has-text-centered">Architectural SE(3) Equivariance</h2>
+      <p>
+        <span class="equidexflow-plain">EquiDexFlow</span> grasps co-rotate with the object under arbitrary rotations. We verify this empirically over 200 rotations, with wrist residual &lt;0.04&deg; and joint deviation exactly zero. What's more: this equivariance guarantee is architectural, and not data-driven. Other learned grasp generators (FFHFlow, ContactGen, GraspDiffusion) achieve rotation robustness through data augmentation. <span class="equidexflow-plain">EquiDexFlow</span>guarantees it <em>by construction</em> via the VN-DGCNN backbone and equivariant flow. Our joint contact-and-force prediction is also distinctive: most learned methods output only wrist pose and joint angles and leave contact quality as a post-hoc filter. EquiDexFlow predicts force-closure-compatible contact configurations directly, meaning downstream planners get richer information <em>without</em> running a separate grasp evaluator.
       </p>
-
+      <br>
       <!-- Tabs for different objects -->
       <div class="tabs is-centered is-boxed is-medium gallery-tabs" id="equiv-tabs">
         <ul>
@@ -577,9 +574,9 @@
         Allegro grasps retargeted to the LEAP Hand via inverse kinematics, validated in
         simulation, and executed on physical hardware.
       </p>
-
+      <p></p>
       <!-- Retargeted grasps gallery (3x4 collage) -->
-      <h4 class="title is-5 has-text-centered">Retargeted Grasps</h4>
+      <h4 class="title is-5 has-text-centered">Retargeted Grasps (LEAP Checkpoints Coming SOON!)</h4>
       <div class="has-text-centered">
         <img src="./static/images/leap_retarget/leap_gallery_2x6.png" alt="LEAP retargeting grasp gallery 2x6"
           class="collage-2x8 zoomable">
@@ -720,6 +717,23 @@
                 <source src="./static/videos/hardware/tennis_ball_cut_cropped.mp4" type="video/mp4">
               </video>
               <span class="hw-ort">Tennis Ball</span>
+            </div>
+          </div>
+        </figure>
+        <figure class="hw-pair-card">
+          <figcaption class="hw-pair-name">OOD Objects <span class="hw-pair-sub">(one rotation-invariant, one asymmetric)</span></figcaption>
+          <div class="hw-pair-vids">
+            <div class="hw-cell">
+              <video class="hw-vid" autoplay muted loop playsinline preload="metadata">
+                <source src="./static/videos/hardware/craftsman_tape_0_cut_cropped.mp4" type="video/mp4">
+              </video>
+              <span class="hw-ort">Craftsman Tape</span>
+            </div>
+            <div class="hw-cell">
+              <video class="hw-vid" autoplay muted loop playsinline preload="metadata">
+                <source src="./static/videos/hardware/pepsi_bottle_0_cut_cropped.mp4" type="video/mp4">
+              </video>
+              <span class="hw-ort">Pepsi Bottle</span>
             </div>
           </div>
         </figure>
