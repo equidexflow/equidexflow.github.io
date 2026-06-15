@@ -2,7 +2,8 @@
 
 Source code for the [EquiDexFlow project website](https://equidexflow.github.io).
 
-EquiDexFlow is an SE(3)-equivariant flow-matching model that takes an object point cloud and produces in a single forward pass: a wrist SE(3) pose, sixteen joint angles from a conditional normalizing flow, four fingertip contacts projected onto the surface, and contact forces projected into the friction cone, all jointly consistent with the learned distribution.
+EquiDexFlow is an SE(3)-equivariant flow-matching model that an object point cloud and a kinematic model of a $D$-DoF, $M$-fingered robotic hand and produces, in a single forward pass: a wrist SE(3) pose, $D$ joint angles from a conditional normalizing flow, a set of $M$ contact points projected onto the object surface, and per-contact forces projected into the friction cone, all jointly consistent with the learned distribution. The released Allegro checkpoints use
+$D{=}16$ and $M{=}4$. Both are set per-hand in the model config.
 
 - **Paper**: [arXiv](http://arxiv.org/abs/2606.12728)
 - **Code**: [equidexflow](https://github.com/coenwerem/equidexflow)
