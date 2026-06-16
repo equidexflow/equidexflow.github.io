@@ -550,33 +550,75 @@ code {
   vertical-align: -0.3em;
 }
 @media (max-width: 768px) {
-  .hw-pair-grid,
+  /* Keep the desktop column structure on phones — just shrink gutters/padding
+     and let the videos scale within their cells. Stacking to 1 column makes
+     the videos huge and breaks the side-by-side 0deg/120deg comparison. */
+  .hw-pair-grid {
+    gap: 10px;
+    padding: 0 8px;
+  }
   .hw-pair-grid--featured {
-    grid-template-columns: 1fr;
-    max-width: 560px;
-    gap: 16px;
-    padding: 0 12px;
+    gap: 8px;
+    padding: 0 6px;
   }
   .hw-pair-card {
-    padding: 10px 10px 12px;
+    padding: 8px 6px 10px;
+    border-radius: 8px;
+  }
+  .hw-pair-name {
+    font-size: 0.82rem;
+    margin-bottom: 6px;
   }
   .hw-pair-vids {
-    gap: 6px;
+    gap: 4px;
+  }
+  .hw-ort {
+    font-size: 0.65rem;
+    margin-top: 3px;
+  }
+  /* Compact the "Click any clip to enlarge" pill on phones. */
+  .zoom-hint {
+    font-size: 0.7rem;
+    padding: 3px 9px;
+    gap: 0.25rem;
+  }
+  .zoom-hint .zoom-hint-icon {
+    width: 1.05em;
+    height: 1.05em;
+    vertical-align: -0.2em;
+  }
+  .zoom-hint i {
+    font-size: 0.95rem;
   }
 }
 @media (max-width: 420px) {
-  .hw-pair-grid,
+  .hw-pair-grid {
+    gap: 6px;
+    padding: 0 4px;
+  }
   .hw-pair-grid--featured {
-    padding: 0 8px;
-    gap: 12px;
+    gap: 5px;
+    padding: 0 4px;
+  }
+  .hw-pair-card {
+    padding: 5px 4px 7px;
+  }
+  .hw-pair-name {
+    font-size: 0.72rem;
+  }
+  .hw-pair-vids {
+    gap: 3px;
   }
   .hw-cell::after,
   .zoom-badge {
-    width: 24px;
-    height: 24px;
-    background-size: 13px 13px;
-    top: 6px;
-    right: 6px;
+    width: 18px;
+    height: 18px;
+    background-size: 10px 10px;
+    top: 4px;
+    right: 4px;
+  }
+  .hw-ort {
+    font-size: 0.58rem;
   }
 }
 
@@ -859,5 +901,124 @@ code {
   }
   .key-results {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ---- Mobile hardening (cross-page) ---- */
+
+/* Safety net: stop accidental horizontal scroll if something escapes a card.
+   Scoped to <body> so position:fixed overlays (lightbox) are unaffected. */
+body {
+  overflow-x: hidden;
+}
+
+/* Wrap any always-visible inline media so it can't blow out narrow columns. */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Bulma .table-container already scrolls horizontally on overflow; reinforce
+   touch momentum and make the scroll affordance obvious on phones. */
+.table-container {
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+  /* Tighten section gutters so cards reach the screen edge predictably. */
+  .section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  /* Hero title + subtitle scale down to avoid line-break disasters. */
+  .hero .title.is-1,
+  .hero .title.is-2,
+  .publication-title {
+    font-size: clamp(1.4rem, 5.5vw, 2rem);
+    line-height: 1.2;
+  }
+  .hero .subtitle,
+  .publication-authors {
+    font-size: 0.95rem;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  /* Paper/code/arXiv button row: wrap and center on small screens. */
+  .publication-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+  }
+  .publication-links .link-block {
+    display: inline-block;
+  }
+  /* Tables: smaller cell padding and font so even pre-scroll they fit better. */
+  .table.is-narrow td,
+  .table.is-narrow th {
+    padding: 0.35em 0.5em;
+    font-size: 0.85rem;
+  }
+  /* BibTeX block: allow horizontal scroll for long URLs/keys, never overflow. */
+  pre,
+  pre code {
+    white-space: pre;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 0.78rem;
+    max-width: 100%;
+  }
+  /* Footer column override: Bulma's is-8 (66%) leaves cramped margins on phones. */
+  .footer .columns > .column.is-8 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .section {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  /* Key-results: minmax(200px,1fr) forces overflow under ~232 px content width
+     (200 + 1.2rem padding); collapse to a single column on tiny phones. */
+  .key-results {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+  }
+  /* Buttons full-width-ish so they're easy to tap. */
+  .publication-links .button {
+    padding-left: 0.9em;
+    padding-right: 0.9em;
+  }
+  /* Tables: tighten further. */
+  .table.is-narrow td,
+  .table.is-narrow th {
+    padding: 0.3em 0.4em;
+    font-size: 0.78rem;
+  }
+}
+
+/* Lightbox: close button is positioned top-right with 24 px offset and 2.2rem
+   font; on a phone in landscape the safe area is tighter, and the hit target
+   sits awkwardly close to the image edge. Resize + reposition. */
+@media (max-width: 768px) {
+  .lightbox-overlay {
+    padding: 2vmin;
+  }
+  .lightbox-overlay video,
+  .lightbox-overlay img {
+    max-width: 96vw;
+    max-height: 82vh;
+  }
+  .lightbox-close {
+    top: 8px;
+    right: 12px;
+    font-size: 1.8rem;
+    padding: 8px 12px;
+    min-width: 44px;
+    min-height: 44px;
+    line-height: 1;
   }
 }
