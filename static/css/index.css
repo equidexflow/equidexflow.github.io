@@ -445,6 +445,12 @@ code {
   max-width: 1200px;
   margin: 1rem auto 0.25rem;
   padding: 0 1rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+.hw-pair-grid--featured {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 1100px;
 }
 .hw-pair-card {
   background: var(--bg-card);
@@ -482,29 +488,26 @@ code {
 /* Always-visible zoom badge so first-time visitors notice the click-to-enlarge */
 .hw-cell::after,
 .zoom-badge {
-  content: "\f00e";              /* fa-search-plus */
-  font-family: "Font Awesome 5 Free", "FontAwesome";
-  font-weight: 900;
+  content: "";
   position: absolute;
   top: 8px;
   right: 8px;
   width: 28px;
   height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.9rem;
-  color: #fff;
-  background: rgba(0, 0, 0, 0.55);
+  background-color: rgba(0, 0, 0, 0.55);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path fill='%23ffffff' d='M500.3 443.7l-119.7-119.7c-15.03 11.5-32.07 20.31-50.32 26.41l119 119c6.25 6.25 14.41 9.376 22.56 9.376s16.31-3.125 22.56-9.376C512.8 457.1 512.8 456.2 500.3 443.7zM207.1 351.1c79.41 0 143.1-64.59 143.1-143.1S286.5 64 207.1 64S64 128.6 64 207.1S128.6 351.1 207.1 351.1zM112 184h71.1V112h47.1v71.1H304v47.1h-72v72h-47.1V232H112V184z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px 16px;
   border-radius: 50%;
   pointer-events: none;
-  opacity: 0.85;
-  transition: opacity 0.15s ease, transform 0.15s ease;
+  opacity: 0.95;
+  transition: opacity 0.15s ease, transform 0.15s ease, background-color 0.15s ease;
 }
 .hw-cell:hover::after {
   opacity: 1;
   transform: scale(1.08);
-  background: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.85);
 }
 .hw-ort {
   display: block;
@@ -537,12 +540,43 @@ code {
   width: auto;
 }
 .zoom-hint i {
-  font-size: 0.85rem;
+  font-size: 1.4rem;
+}
+.zoom-hint .zoom-hint-icon {
+  width: 1.6em;
+  height: 1.6em;
+  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: -0.3em;
 }
 @media (max-width: 768px) {
-  .hw-pair-grid {
+  .hw-pair-grid,
+  .hw-pair-grid--featured {
     grid-template-columns: 1fr;
-    max-width: 520px;
+    max-width: 560px;
+    gap: 16px;
+    padding: 0 12px;
+  }
+  .hw-pair-card {
+    padding: 10px 10px 12px;
+  }
+  .hw-pair-vids {
+    gap: 6px;
+  }
+}
+@media (max-width: 420px) {
+  .hw-pair-grid,
+  .hw-pair-grid--featured {
+    padding: 0 8px;
+    gap: 12px;
+  }
+  .hw-cell::after,
+  .zoom-badge {
+    width: 24px;
+    height: 24px;
+    background-size: 13px 13px;
+    top: 6px;
+    right: 6px;
   }
 }
 
