@@ -590,6 +590,24 @@ code {
   .zoom-hint i {
     font-size: 0.95rem;
   }
+  /* Shake-test gallery (Mustard 0/120, Can 0/120): 2x2 on phones so each
+     pair stays side-by-side. Bulma .columns would otherwise stack to 1 col. */
+  .shake-grid.columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .shake-grid.columns > .column {
+    padding: 4px;
+    width: auto;
+    flex: none;
+  }
+  .shake-grid.columns > .column .is-size-7 {
+    font-size: 0.65rem !important;
+    margin-top: 0.3rem !important;
+  }
 }
 @media (max-width: 420px) {
   .hw-pair-grid {
@@ -619,6 +637,44 @@ code {
   }
   .hw-ort {
     font-size: 0.58rem;
+  }
+  .shake-grid.columns {
+    gap: 5px;
+  }
+  .shake-grid.columns > .column {
+    padding: 2px;
+  }
+  .shake-grid.columns > .column .is-size-7 {
+    font-size: 0.58rem !important;
+    margin-top: 0.2rem !important;
+  }
+  /* Equivariance strips at narrow widths: shrink images and hide arrow gap. */
+  .equiv-strip {
+    gap: 0.15rem;
+    padding: 0.35rem;
+  }
+  .equiv-strip img {
+    height: 56px;
+  }
+  .equiv-strip .equiv-arrow {
+    font-size: 0.7rem;
+  }
+  .equiv-strip .equiv-label {
+    font-size: 0.52rem;
+  }
+  .teaser-equivariance {
+    gap: 0.2rem;
+    padding: 0.35rem;
+  }
+  .teaser-panel img {
+    width: 60px;
+    height: 60px;
+  }
+  .teaser-equivariance .teaser-arrow {
+    font-size: 0.8rem;
+  }
+  .tabs.is-medium {
+    font-size: 0.75rem;
   }
 }
 
@@ -879,19 +935,43 @@ code {
 
 /* Responsive */
 @media screen and (max-width: 768px) {
+  /* Teaser equivariance: KEEP the Input → Baseline → EquiDexFlow row horizontal
+     on phones — the comparison only reads side-by-side. Shrink panels instead. */
   .teaser-equivariance {
-    flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.35rem;
+    padding: 0.5rem;
   }
   .teaser-panel img {
-    width: 100px;
-    height: 100px;
+    width: 78px;
+    height: 78px;
   }
+  .teaser-equivariance .teaser-arrow {
+    font-size: 1rem;
+  }
+  .teaser-equivariance .teaser-label {
+    font-size: 0.65rem;
+  }
+  /* Equivariance tabbed strip: KEEP the 0° → 120° → 240° row horizontal. */
   .equiv-strip {
-    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.5rem;
   }
   .equiv-strip img {
-    height: 120px;
+    height: 78px;
+  }
+  .equiv-strip .equiv-arrow {
+    font-size: 0.9rem;
+  }
+  .equiv-strip .equiv-label {
+    font-size: 0.6rem;
+    margin-top: 0.15rem;
+  }
+  /* Tabs themselves: shrink labels so they fit on one row instead of wrapping. */
+  .tabs.is-medium {
+    font-size: 0.85rem;
+  }
+  .tabs.is-boxed a {
+    padding: 0.35em 0.6em;
   }
   .hardware-grid {
     grid-template-columns: 1fr;
@@ -902,6 +982,53 @@ code {
   .key-results {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+/* Status pill — inline subhead annotation (e.g. "coming soon"). Sits next to
+   a heading without inheriting its weight/size/centering, so the heading stays
+   clean. Pair with .status-pill--soon for the amber "in progress" variant. */
+.status-pill {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0.5rem;
+  padding: 0.18em 0.7em;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  line-height: 1.4;
+  white-space: nowrap;
+  font-family: 'Google Sans', 'Noto Sans', sans-serif;
+}
+.status-pill--soon {
+  background: hsl(38, 92%, 92%);
+  color: hsl(28, 70%, 35%);
+  border: 1px solid hsl(38, 80%, 78%);
+}
+[data-theme="dark"] .status-pill--soon {
+  background: hsl(38, 40%, 18%);
+  color: hsl(38, 80%, 70%);
+  border-color: hsl(38, 35%, 28%);
+}
+
+/* ---- Text alignment contract ----
+   Headers stay centered (handled by .title.has-text-centered already).
+   Body text (subtitle paragraphs, captions, abstract, card descriptions)
+   is justified — never centered, never last-line-stretched. */
+p, .subtitle, .content {
+  text-align-last: auto;
+}
+.content p,
+p.subtitle,
+.subtitle p {
+  text-align: justify;
+  hyphens: auto;
+}
+/* Method cards: keep icon + heading centered, justify the description paragraph. */
+.method-card.has-text-centered > p {
+  text-align: justify;
+  hyphens: auto;
 }
 
 /* ---- Mobile hardening (cross-page) ---- */

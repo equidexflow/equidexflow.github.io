@@ -212,7 +212,7 @@
           </div>
         </figure>
       </div>
-      <p class="has-text-centered" style="font-size: 1.05rem; color: var(--text-muted); max-width: 820px; margin: 1rem auto 0;">
+      <p class="has-text-justified" style="font-size: 1.05rem; color: var(--text-muted); max-width: 820px; margin: 1rem auto 0;">
         A small selection of <span class="equidexflow-plain">EquiDexFlow</span> grasps executed on a physical LEAP Hand for the same object at the canonical ($0&deg;$) and $R_z(120&deg;)$-rotated poses.
       </p>
       <div class="has-text-centered" style="margin-top: 1.25rem;">
@@ -389,8 +389,8 @@
   <section class="section has-background-light">
     <div class="container is-max-widescreen">
       <h2 class="title is-3 has-text-centered">Architectural SE(3) Equivariance</h2>
-      <p>
-        <span class="equidexflow-plain">EquiDexFlow</span> grasps co-rotate with the object under arbitrary rotations. We verify this empirically over 200 rotations, with wrist residual &lt;0.04&deg; and joint deviation exactly zero. What's more: this equivariance guarantee is architectural, and not data-driven. Other learned grasp generators (FFHFlow, ContactGen, GraspDiffusion) achieve rotation robustness through data augmentation. <span class="equidexflow-plain">EquiDexFlow</span>guarantees it <em>by construction</em> via the VN-DGCNN backbone and equivariant flow. Our joint contact-and-force prediction is also distinctive: most learned methods output only wrist pose and joint angles and leave contact quality as a post-hoc filter. EquiDexFlow predicts force-closure-compatible contact configurations directly, meaning downstream planners get richer information <em>without</em> running a separate grasp evaluator.
+      <p class="has-text-justified" style="max-width: 920px; margin: 0 auto;">
+        <span class="equidexflow-plain">EquiDexFlow</span> grasps co-rotate with the object under arbitrary rotations. We verify this empirically over 200 rotations, with wrist residual &lt;0.04&deg; and joint deviation exactly zero. What's more: this equivariance guarantee is architectural, and not data-driven. Other learned grasp generators (FFHFlow, ContactGen, GraspDiffusion) achieve rotation robustness through data augmentation. <span class="equidexflow-plain">EquiDexFlow</span> guarantees it <em>by construction</em> via the VN-DGCNN backbone and equivariant flow. Our joint contact-and-force prediction is also distinctive: most learned methods output only wrist pose and joint angles and leave contact quality as a post-hoc filter. EquiDexFlow predicts force-closure-compatible contact configurations directly, meaning downstream planners get richer information <em>without</em> running a separate grasp evaluator.
       </p>
       <br>
       <!-- Tabs for different objects -->
@@ -464,13 +464,13 @@
 
       <!-- Six-object equivariance gallery (Fig. 6 style: three object triples) -->
       <div class="has-text-centered" style="margin-top: 1.5rem;">
-        <p class="is-size-6" style="color: var(--text-muted); margin-bottom: 0.75rem;">
+        <p class="is-size-6 has-text-justified" style="color: var(--text-muted); margin: 0 auto 0.75rem; max-width: 900px;">
           Extended gallery: six objects across three input rotations (0&deg;, 120&deg;, 240&deg; about the
           vertical axis). The wrist pose and finger configuration co-rotate with the object.
         </p>
         <img src="./static/images/equivariance/allegro_eq_six_test.png"
           alt="Six-object SE(3) equivariance gallery" class="equiv-sixtest-img zoomable">
-        <p class="is-size-7" style="color: var(--text-muted); margin-top: 0.5rem;">
+        <p class="is-size-7 has-text-justified" style="color: var(--text-muted); margin: 0.5rem auto 0; max-width: 900px;">
           Objects, left to right then top to bottom in triples: YCB pudding box, EGAD! G6, box primitive,
           YCB mustard bottle, EGAD! E4, and EGAD! G5. Within each object, the three frames are
           0&deg;, 120&deg;, and 240&deg;.
@@ -484,7 +484,7 @@
   <section class="section">
     <div class="container is-max-widescreen">
       <h2 class="title is-3 has-text-centered">Generated Grasps</h2>
-      <p class="subtitle has-text-centered">
+      <p class="subtitle has-text-justified">
         Allegro Hand grasps produced by <span class="equidexflow-plain">EquiDexFlow</span> across
         EGAD!, YCB, and primitive objects. Each grasp is decoded from a point cloud and seated on the
         surface by wrist refinement.
@@ -507,7 +507,7 @@
           <img src="./static/images/tto/tto_prepost_tomato_soup_can.png"
             alt="Wrist refinement: pre-contact IK (left) versus contact IK (right) on a tomato soup can"
             class="tto-figure">
-          <p class="is-size-7" style="color: var(--text-muted); margin-top: 0.5rem;">
+          <p class="is-size-7 has-text-justified" style="color: var(--text-muted); margin-top: 0.5rem;">
             Pre-contact IK (left) and contact IK (right) on the YCB tomato soup can
           </p>
         </div>
@@ -533,7 +533,7 @@
   <section class="section">
     <div class="container is-max-desktop">
       <h2 class="title is-3 has-text-centered">Results</h2>
-      <p class="subtitle has-text-centered">
+      <p class="subtitle has-text-justified">
         Grasp quality on 811 test grasps, 10 samples each.
         All variants achieve 0% friction violations (architectural guarantee).
       </p>
@@ -641,7 +641,7 @@
         </div>
       </div>
 
-      <div class="content has-text-centered" style="margin-top: 0.5rem;">
+      <div class="content has-text-justified" style="margin-top: 0.5rem; max-width: 760px; margin-left: auto; margin-right: auto;">
         <p class="is-size-6" style="color: var(--text-muted);">
           Disabling cone projection degrades the composite score by over 6&times; and drives
           friction violations to 100%, confirming the 0% rate is a structural guarantee.
@@ -655,18 +655,21 @@
   <section class="section has-background-light">
     <div class="container is-max-widescreen">
       <h2 class="title is-3 has-text-centered">Cross-Embodiment Transfer to the LEAP Hand</h2>
-      <p class="subtitle has-text-centered">
+      <p class="subtitle has-text-justified">
         Allegro grasps retargeted to the LEAP Hand via inverse kinematics, validated in
         simulation, and executed on physical hardware.
       </p>
       <p></p>
       <!-- Retargeted grasps gallery (3x4 collage) -->
-      <h4 class="title is-5 has-text-centered">Retargeted Grasps (LEAP Checkpoints Coming SOON!)</h4>
+      <h4 class="title is-5 has-text-centered">
+        <!-- Retargeted Grasps -->
+        <span class="status-pill status-pill--soon">LEAP checkpoints coming soon</span>
+      </h4>
       <div class="has-text-centered">
         <img src="./static/images/leap_retarget/leap_gallery_2x6.png" alt="LEAP retargeting grasp gallery 2x6"
           class="collage-2x8 zoomable">
       </div>
-      <p class="has-text-centered is-size-7" style="color: var(--text-muted); margin-top: 0.5rem;">
+      <p class="has-text-justified is-size-7" style="color: var(--text-muted); margin: 0.5rem auto 0; max-width: 920px;">
         Front view. Retargeted from Allegro to LEAP via contact-point IK. Mean fingertip residual 14 mm.
         Objects, left to right and top to bottom: box primitive, SNS cup, sugar box, tennis ball,
         tomato soup can, apple, EGAD G6, cube, softball, EGAD E4, EGAD A4, and EGAD F6.
@@ -674,13 +677,13 @@
 
       <!-- Simulated shake-test robustness -->
       <h4 class="title is-5 has-text-centered" style="margin-top: 2rem;">Simulated Shake-Test Robustness</h4>
-      <p class="has-text-centered is-size-6" style="color: var(--text-muted); max-width: 760px; margin: 0 auto 1rem;">
+      <p class="has-text-justified is-size-6" style="color: var(--text-muted); max-width: 760px; margin: 0 auto 1rem;">
         Gravity-off robustness check (GenDexGrasp/GAGrasp protocol in Drake): a &plusmn;<em>xyz</em>
         inertial load is applied to the object along all six axes, and a grasp passes if the object
         drifts under 2&nbsp;cm in every direction. Both objects pass at the canonical pose and its
         120&deg; co-rotation, and the held object stays nearly stationary throughout.
       </p>
-      <div class="columns is-centered is-vcentered">
+      <div class="columns is-centered is-vcentered shake-grid">
         <div class="column has-text-centered">
           <video class="zoomable" autoplay muted loop playsinline preload="metadata" style="max-width: 100%; border-radius: 6px;">
             <source src="./static/videos/sim_shake/mustard_bottle__shake_0.mp4" type="video/mp4">
@@ -709,7 +712,7 @@
 
       <!-- Hardware execution -->
       <h4 id="full-gallery" class="title is-5 has-text-centered" style="margin-top: 2rem;">Hardware Execution</h4>
-      <p class="has-text-centered is-size-6" style="color: var(--text-muted); max-width: 760px; margin: 0 auto;">
+      <p class="has-text-justified is-size-6" style="color: var(--text-muted); max-width: 760px; margin: 0 auto;">
         Equivariant grasps executed on a physical LEAP Hand mounted on a 6-DoF ZArm.
         All six hardware test objects complete open-loop pick-and-hold trials, with every asymmetric
         object succeeding at both 0&deg; and 120&deg;.
@@ -824,7 +827,7 @@
           </div>
         </figure>
       </div>
-      <p class="has-text-centered is-size-7" style="color: var(--text-muted); margin: 0.5rem auto 0; max-width: 720px;">
+      <p class="has-text-justified is-size-7" style="color: var(--text-muted); margin: 0.5rem auto 0; max-width: 720px;">
         Each pair is the same generated grasp co-transformed by equivariance from 0&deg; to 120&deg;, not re-planned.
       </p>
 
